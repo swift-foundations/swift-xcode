@@ -31,6 +31,17 @@ dependencies: [
 ]
 ```
 
+Add a product to your target:
+
+```swift
+.target(
+    name: "YourTarget",
+    dependencies: [
+        .product(name: "Xcode Workspace", package: "swift-xcode")
+    ]
+)
+```
+
 Products:
 
 - `Xcode Workspace` exposes `Xcode.Workspace` serialization and atomic writes.
