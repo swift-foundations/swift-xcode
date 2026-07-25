@@ -54,6 +54,32 @@ Products:
 
 ---
 
+## Error Handling
+
+Workspace and scheme writes throw a typed `Error` with the same three cases on
+each product (`Xcode.Workspace.Error`, `Xcode.Scheme.Error`):
+
+```
+Xcode.Workspace.Error / Xcode.Scheme.Error
+├── .path      // the destination path is invalid
+├── .create    // the container could not be created
+└── .write     // serialization could not be written atomically
+```
+
+```swift
+do {
+    try workspace.write(to: "/path/to/institute.xcworkspace")
+} catch .path {
+    // invalid destination path
+} catch .create {
+    // could not create the .xcworkspace container
+} catch .write {
+    // atomic write failed
+}
+```
+
+---
+
 ## Community
 
 <!-- BEGIN: discussion -->
