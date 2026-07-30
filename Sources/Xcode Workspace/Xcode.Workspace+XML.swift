@@ -1,5 +1,5 @@
-public import Xcode_Workspace_Standard
 private import XML
+public import Xcode_Workspace_Standard
 
 extension Xcode.Workspace {
     /// Serializes `contents.xcworkspacedata` through the XML foundation.

@@ -8,7 +8,7 @@ extension Xcode.Scheme {
             "Scheme",
             attributes: [
                 .init(name: "LastUpgradeVersion", value: "2650"),
-                .init(name: "version", value: version)
+                .init(name: "version", value: version),
             ],
             children: [
                 buildAction,
@@ -30,10 +30,13 @@ extension Xcode.Scheme {
                 // it is this element.
                 XML.element("ProfileAction", attributes: [.init(name: "buildConfiguration", value: "Release")]),
                 XML.element("AnalyzeAction", attributes: [.init(name: "buildConfiguration", value: "Debug")]),
-                XML.element("ArchiveAction", attributes: [
-                    .init(name: "buildConfiguration", value: "Release"),
-                    .init(name: "revealArchiveInOrganizer", value: "YES")
-                ])
+                XML.element(
+                    "ArchiveAction",
+                    attributes: [
+                        .init(name: "buildConfiguration", value: "Release"),
+                        .init(name: "revealArchiveInOrganizer", value: "YES"),
+                    ]
+                ),
             ]
         )
         return XML.Document(version: .v1_0, encoding: "UTF-8", root: root).serialize(pretty: true)
@@ -44,7 +47,7 @@ extension Xcode.Scheme {
             "BuildAction",
             attributes: [
                 .init(name: "parallelizeBuildables", value: "YES"),
-                .init(name: "buildImplicitDependencies", value: "YES")
+                .init(name: "buildImplicitDependencies", value: "YES"),
             ],
             children: [XML.element("BuildActionEntries", children: build.map { entry($0.reference) })]
         )
@@ -54,13 +57,18 @@ extension Xcode.Scheme {
         XML.element(
             "TestAction",
             attributes: action(configuration: "Debug"),
-            children: [XML.element("Testables", children: test.map { item in
+            children: [
                 XML.element(
-                    "TestableReference",
-                    attributes: [.init(name: "skipped", value: item.skipped ? "YES" : "NO")],
-                    children: [node(item.reference)]
+                    "Testables",
+                    children: test.map { item in
+                        XML.element(
+                            "TestableReference",
+                            attributes: [.init(name: "skipped", value: item.skipped ? "YES" : "NO")],
+                            children: [node(item.reference)]
+                        )
+                    }
                 )
-            })]
+            ]
         )
     }
 
@@ -82,7 +90,7 @@ extension Xcode.Scheme {
                 .init(name: "BlueprintIdentifier", value: value.blueprint),
                 .init(name: "BuildableName", value: value.name),
                 .init(name: "BlueprintName", value: value.name),
-                .init(name: "ReferencedContainer", value: value.container)
+                .init(name: "ReferencedContainer", value: value.container),
             ]
         )
     }
@@ -92,7 +100,7 @@ extension Xcode.Scheme {
             .init(name: "buildConfiguration", value: configuration),
             .init(name: "selectedDebuggerIdentifier", value: "Xcode.DebuggerFoundation.Debugger.LLDB"),
             .init(name: "selectedLauncherIdentifier", value: "Xcode.DebuggerFoundation.Launcher.LLDB"),
-            .init(name: "shouldUseLaunchSchemeArgsEnv", value: "YES")
+            .init(name: "shouldUseLaunchSchemeArgsEnv", value: "YES"),
         ]
     }
 }
