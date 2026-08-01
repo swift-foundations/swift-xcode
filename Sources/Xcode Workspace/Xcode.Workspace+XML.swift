@@ -10,7 +10,12 @@ extension Xcode.Workspace {
             children: references.map { reference in
                 XML.element(
                     "FileRef",
-                    attributes: [.init(name: "location", value: reference.location.rawValue)]
+                    attributes: [
+                        // swift-linter:disable:next raw value access
+                        // REASON: serializing the location's typed value into
+                        // the XML wire format at this module's own boundary.
+                        .init(name: "location", value: reference.location.rawValue)
+                    ]
                 )
             }
         )
