@@ -28,8 +28,14 @@ extension Xcode.Scheme {
                 // `AnalyzeAction` and `ArchiveAction` are all harmless in the
                 // same test, so this is not "empty stubs crash" in general —
                 // it is this element.
-                XML.element("ProfileAction", attributes: [.init(name: "buildConfiguration", value: "Release")]),
-                XML.element("AnalyzeAction", attributes: [.init(name: "buildConfiguration", value: "Debug")]),
+                XML.element(
+                    "ProfileAction",
+                    attributes: [.init(name: "buildConfiguration", value: "Release")]
+                ),
+                XML.element(
+                    "AnalyzeAction",
+                    attributes: [.init(name: "buildConfiguration", value: "Debug")]
+                ),
                 XML.element(
                     "ArchiveAction",
                     attributes: [
@@ -49,7 +55,9 @@ extension Xcode.Scheme {
                 .init(name: "parallelizeBuildables", value: "YES"),
                 .init(name: "buildImplicitDependencies", value: "YES"),
             ],
-            children: [XML.element("BuildActionEntries", children: build.map { entry($0.reference) })]
+            children: [
+                XML.element("BuildActionEntries", children: build.map { entry($0.reference) })
+            ]
         )
     }
 
@@ -63,7 +71,9 @@ extension Xcode.Scheme {
                     children: test.map { item in
                         XML.element(
                             "TestableReference",
-                            attributes: [.init(name: "skipped", value: item.skipped ? "YES" : "NO")],
+                            attributes: [
+                                .init(name: "skipped", value: item.skipped ? "YES" : "NO")
+                            ],
                             children: [node(item.reference)]
                         )
                     }
@@ -75,7 +85,10 @@ extension Xcode.Scheme {
     private func entry(_ value: Reference) -> XML {
         XML.element(
             "BuildActionEntry",
-            attributes: ["buildForTesting", "buildForRunning", "buildForProfiling", "buildForArchiving", "buildForAnalyzing"].map {
+            attributes: [
+                "buildForTesting", "buildForRunning", "buildForProfiling", "buildForArchiving",
+                "buildForAnalyzing",
+            ].map {
                 .init(name: $0, value: "YES")
             },
             children: [node(value)]
@@ -98,8 +111,14 @@ extension Xcode.Scheme {
     private func action(configuration: Swift.String) -> [XML.Attribute] {
         [
             .init(name: "buildConfiguration", value: configuration),
-            .init(name: "selectedDebuggerIdentifier", value: "Xcode.DebuggerFoundation.Debugger.LLDB"),
-            .init(name: "selectedLauncherIdentifier", value: "Xcode.DebuggerFoundation.Launcher.LLDB"),
+            .init(
+                name: "selectedDebuggerIdentifier",
+                value: "Xcode.DebuggerFoundation.Debugger.LLDB"
+            ),
+            .init(
+                name: "selectedLauncherIdentifier",
+                value: "Xcode.DebuggerFoundation.Launcher.LLDB"
+            ),
             .init(name: "shouldUseLaunchSchemeArgsEnv", value: "YES"),
         ]
     }
