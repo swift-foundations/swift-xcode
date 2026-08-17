@@ -4,7 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "swift-xcode",
-    platforms: [.macOS(.v26)],
+    platforms: [.macOS("27")],
     products: [
         .library(name: "Xcode Workspace", targets: ["Xcode Workspace"]),
         .library(name: "Xcode Scheme", targets: ["Xcode Scheme"])
