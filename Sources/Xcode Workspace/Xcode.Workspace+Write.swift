@@ -2,7 +2,7 @@ private import File_System
 public import Xcode_Workspace_Standard
 
 extension Xcode.Workspace {
-    /// Atomically writes this document into an Xcode workspace bundle.
+
     public func write(to directory: Swift.String) throws(Error) {
         let bundle: File.Path
         do throws(File.Path.Error) {

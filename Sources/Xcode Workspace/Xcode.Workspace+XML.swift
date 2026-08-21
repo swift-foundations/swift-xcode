@@ -2,7 +2,7 @@ private import XML
 public import Xcode_Workspace_Standard
 
 extension Xcode.Workspace {
-    /// Serializes `contents.xcworkspacedata` through the XML foundation.
+
     public var xml: Swift.String {
         let root = XML.element(
             "Workspace",
@@ -11,9 +11,7 @@ extension Xcode.Workspace {
                 XML.element(
                     "FileRef",
                     attributes: [
-                        // swift-linter:disable:next raw value access
-                        // REASON: serializing the location's typed value into
-                        // the XML wire format at this module's own boundary.
+
                         .init(name: "location", value: reference.location.rawValue)
                     ]
                 )

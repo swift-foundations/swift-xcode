@@ -2,7 +2,7 @@ private import XML
 public import Xcode_Scheme_Standard
 
 extension Xcode.Scheme {
-    /// Serializes a shared scheme through the XML foundation.
+
     public var xml: Swift.String {
         let root = XML.element(
             "Scheme",
@@ -13,21 +13,7 @@ extension Xcode.Scheme {
             children: [
                 buildAction,
                 testAction,
-                // No `LaunchAction`. `Xcode.Scheme` models a build list and a
-                // test list and cannot describe anything runnable, so the
-                // element could only ever be emitted as a content-free stub —
-                // debugger and launcher identifiers naming nothing to launch.
-                //
-                // `xcodebuild` does not tolerate that stub: given a scheme
-                // carrying it, `xcodebuild -workspace … -scheme … build`
-                // resolves the package graph and then dies of SIGSEGV (exit
-                // 139) with no diagnostic. Bisected against a one-package
-                // workspace on Xcode 27.0 (27A5228h): the same scheme builds
-                // with RC=0 when this element alone is removed, and dies again
-                // when it alone is restored. `TestAction`, `ProfileAction`,
-                // `AnalyzeAction` and `ArchiveAction` are all harmless in the
-                // same test, so this is not "empty stubs crash" in general —
-                // it is this element.
+
                 XML.element(
                     "ProfileAction",
                     attributes: [.init(name: "buildConfiguration", value: "Release")]

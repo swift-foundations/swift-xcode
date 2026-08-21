@@ -2,7 +2,7 @@ private import File_System
 public import Xcode_Scheme_Standard
 
 extension Xcode.Scheme {
-    /// Atomically writes this shared scheme inside an Xcode workspace bundle.
+
     public func write(_ name: Swift.String, to workspace: Swift.String) throws(Error) {
         let directory: File.Path
         let file: File.Path.Component
